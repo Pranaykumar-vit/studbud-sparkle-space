@@ -1,8 +1,9 @@
 import { Card } from "@/components/ui/card";
 import { Progress } from "@/components/ui/progress";
-import { ChartBar, BookOpen, Clock, Award, Flame, Trophy, Star } from "lucide-react";
+import { ChartBar, BookOpen, Clock, Award, Flame, Trophy, Star, Bell } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, PieChart, Pie, Cell } from 'recharts';
+import { Avatar } from "@/components/ui/avatar";
 
 const Dashboard = () => {
   const userData = {
@@ -59,21 +60,31 @@ const Dashboard = () => {
     ],
   };
 
-  const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042', '#8884d8'];
-
-  const courseTimeData = userData.enrolledCourses.map(course => ({
-    name: course.title,
-    hours: Math.floor(Math.random() * 20) + 5, // Replace with actual data
-  }));
+  const COLORS = ['#9b87f5', '#7E69AB', '#6E59A5', '#D6BCFA', '#FFDEE2'];
 
   return (
     <div className="p-6 bg-background">
-      <h1 className="text-3xl font-bold mb-8 bg-gradient-to-r from-primary to-primary/60 bg-clip-text text-transparent">
-        Welcome back, {userData.name}!
-      </h1>
+      <div className="flex justify-between items-center mb-8">
+        <h1 className="text-3xl font-bold bg-gradient-to-r from-primary to-primary/60 bg-clip-text text-transparent">
+          Welcome back, {userData.name}!
+        </h1>
+        <div className="flex items-center gap-4">
+          <Button variant="ghost" size="icon" className="relative">
+            <Bell className="h-5 w-5" />
+            <span className="absolute -top-1 -right-1 h-4 w-4 bg-primary rounded-full text-[10px] flex items-center justify-center text-white">
+              3
+            </span>
+          </Button>
+          <Avatar className="h-10 w-10">
+            <div className="bg-primary/10 h-full w-full flex items-center justify-center">
+              <span className="text-primary font-medium">JD</span>
+            </div>
+          </Avatar>
+        </div>
+      </div>
       
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
-        <Card className="p-4 hover:shadow-lg transition-shadow">
+        <Card className="p-4 hover:shadow-lg transition-shadow bg-white/50 backdrop-blur-sm">
           <div className="flex items-center gap-3">
             <div className="rounded-full bg-primary/10 p-3">
               <BookOpen className="h-6 w-6 text-primary" />
@@ -85,7 +96,7 @@ const Dashboard = () => {
           </div>
         </Card>
         
-        <Card className="p-4 hover:shadow-lg transition-shadow">
+        <Card className="p-4 hover:shadow-lg transition-shadow bg-white/50 backdrop-blur-sm">
           <div className="flex items-center gap-3">
             <div className="rounded-full bg-primary/10 p-3">
               <ChartBar className="h-6 w-6 text-primary" />
@@ -98,7 +109,7 @@ const Dashboard = () => {
           <Progress value={userData.stats.completionPercentage} className="mt-3" />
         </Card>
         
-        <Card className="p-4 hover:shadow-lg transition-shadow">
+        <Card className="p-4 hover:shadow-lg transition-shadow bg-white/50 backdrop-blur-sm">
           <div className="flex items-center gap-3">
             <div className="rounded-full bg-primary/10 p-3">
               <Flame className="h-6 w-6 text-primary" />
@@ -110,7 +121,7 @@ const Dashboard = () => {
           </div>
         </Card>
         
-        <Card className="p-4 hover:shadow-lg transition-shadow">
+        <Card className="p-4 hover:shadow-lg transition-shadow bg-white/50 backdrop-blur-sm">
           <div className="flex items-center gap-3">
             <div className="rounded-full bg-primary/10 p-3">
               <Trophy className="h-6 w-6 text-primary" />
@@ -124,11 +135,14 @@ const Dashboard = () => {
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
-        <Card className="p-6 col-span-2 hover:shadow-lg transition-shadow">
-          <h2 className="text-xl font-semibold mb-4">Enrolled Courses</h2>
+        <Card className="p-6 col-span-2 hover:shadow-lg transition-shadow bg-white/50 backdrop-blur-sm">
+          <h2 className="text-xl font-semibold mb-4 flex items-center gap-2">
+            <BookOpen className="h-5 w-5 text-primary" />
+            Enrolled Courses
+          </h2>
           <div className="space-y-4">
             {userData.enrolledCourses.map((course) => (
-              <div key={course.id} className="border rounded-lg p-4 hover:border-primary/50 transition-colors">
+              <div key={course.id} className="border rounded-lg p-4 hover:border-primary/50 transition-colors bg-white/30">
                 <div className="flex gap-4">
                   <img 
                     src={course.image} 
@@ -156,13 +170,16 @@ const Dashboard = () => {
           </div>
         </Card>
         
-        <Card className="p-6 hover:shadow-lg transition-shadow">
-          <h2 className="text-xl font-semibold mb-4">Badges & Achievements</h2>
+        <Card className="p-6 hover:shadow-lg transition-shadow bg-white/50 backdrop-blur-sm">
+          <h2 className="text-xl font-semibold mb-4 flex items-center gap-2">
+            <Award className="h-5 w-5 text-primary" />
+            Badges & Achievements
+          </h2>
           <div className="grid grid-cols-2 gap-4">
             {userData.badges.map((badge) => (
               <div
                 key={badge.id}
-                className={`p-4 border rounded-lg text-center hover:border-primary/50 transition-colors ${
+                className={`p-4 border rounded-lg text-center hover:border-primary/50 transition-colors bg-white/30 ${
                   !badge.earned && "opacity-50"
                 }`}
               >
@@ -178,16 +195,25 @@ const Dashboard = () => {
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        <Card className="p-6 hover:shadow-lg transition-shadow">
-          <h2 className="text-xl font-semibold mb-4">Time Spent Learning</h2>
+        <Card className="p-6 hover:shadow-lg transition-shadow bg-white/50 backdrop-blur-sm">
+          <h2 className="text-xl font-semibold mb-4 flex items-center gap-2">
+            <Clock className="h-5 w-5 text-primary" />
+            Time Spent Learning
+          </h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div className="h-64">
               <ResponsiveContainer width="100%" height="100%">
                 <BarChart data={userData.timeSpent}>
-                  <CartesianGrid strokeDasharray="3 3" />
+                  <CartesianGrid strokeDasharray="3 3" className="opacity-30" />
                   <XAxis dataKey="name" />
                   <YAxis />
-                  <Tooltip />
+                  <Tooltip 
+                    contentStyle={{ 
+                      background: 'rgba(255, 255, 255, 0.9)',
+                      border: '1px solid rgba(0, 0, 0, 0.1)',
+                      borderRadius: '8px'
+                    }} 
+                  />
                   <Bar dataKey="hours" fill="hsl(var(--primary))" />
                 </BarChart>
               </ResponsiveContainer>
@@ -196,7 +222,10 @@ const Dashboard = () => {
               <ResponsiveContainer width="100%" height="100%">
                 <PieChart>
                   <Pie
-                    data={courseTimeData}
+                    data={userData.enrolledCourses.map(course => ({
+                      name: course.title,
+                      hours: Math.floor(Math.random() * 20) + 5
+                    }))}
                     dataKey="hours"
                     nameKey="name"
                     cx="50%"
@@ -204,7 +233,7 @@ const Dashboard = () => {
                     outerRadius={80}
                     label
                   >
-                    {courseTimeData.map((entry, index) => (
+                    {userData.enrolledCourses.map((_, index) => (
                       <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
                     ))}
                   </Pie>
@@ -218,18 +247,24 @@ const Dashboard = () => {
               Total time this week: {userData.timeSpent.reduce((acc, day) => acc + day.hours, 0)} hours
             </p>
             <div className="mt-2 space-y-2">
-              {courseTimeData.map((course, index) => (
-                <div key={course.name} className="flex items-center gap-2">
-                  <div className="w-3 h-3 rounded-full" style={{ backgroundColor: COLORS[index % COLORS.length] }} />
-                  <span className="text-sm">{course.name}: {course.hours} hours</span>
+              {userData.enrolledCourses.map((course, index) => (
+                <div key={course.title} className="flex items-center gap-2">
+                  <div 
+                    className="w-3 h-3 rounded-full" 
+                    style={{ backgroundColor: COLORS[index % COLORS.length] }} 
+                  />
+                  <span className="text-sm">{course.title}: {Math.floor(Math.random() * 20) + 5} hours</span>
                 </div>
               ))}
             </div>
           </div>
         </Card>
         
-        <Card className="p-6 hover:shadow-lg transition-shadow">
-          <h2 className="text-xl font-semibold mb-4">Leaderboard</h2>
+        <Card className="p-6 hover:shadow-lg transition-shadow bg-white/50 backdrop-blur-sm">
+          <h2 className="text-xl font-semibold mb-4 flex items-center gap-2">
+            <Trophy className="h-5 w-5 text-primary" />
+            Leaderboard
+          </h2>
           <div className="space-y-4">
             {[1, 2, 3, 4, 5].map((position) => (
               <div
