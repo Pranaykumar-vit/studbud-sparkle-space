@@ -1,4 +1,4 @@
-import { Home, BookOpen, FileText, Users } from "lucide-react";
+import { Home, BookOpen, FileText, Users, Target, Brain, HelpCircle } from "lucide-react";
 import { useLocation } from "react-router-dom";
 import {
   Sidebar,
@@ -9,6 +9,7 @@ import {
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
+  SidebarRail,
 } from "@/components/ui/sidebar";
 
 const items = [
@@ -31,6 +32,21 @@ const items = [
     title: "Community",
     icon: Users,
     url: "/community",
+  },
+  {
+    title: "Goals",
+    icon: Target,
+    url: "/goals",
+  },
+  {
+    title: "Interactive Tutoring",
+    icon: Brain,
+    url: "/tutoring",
+  },
+  {
+    title: "Help",
+    icon: HelpCircle,
+    url: "/help",
   },
 ];
 
@@ -62,6 +78,7 @@ export function AppSidebar() {
           </SidebarGroupContent>
         </SidebarGroup>
       </SidebarContent>
+      <SidebarRail />
     </Sidebar>
   );
 }
