@@ -35,6 +35,7 @@ export function AppSidebar() {
 
   const toggleTheme = () => {
     setTheme(theme === "dark" ? "light" : "dark");
+    document.documentElement.classList.toggle("dark");
   };
 
   return (
@@ -87,7 +88,7 @@ export function AppSidebar() {
                   onClick={toggleTheme}
                   tooltip={`Toggle ${theme === 'dark' ? 'Light' : 'Dark'} Mode`}
                 >
-                  {theme === 'dark' ? <Sun /> : <Moon />}
+                  {theme === 'dark' ? <Sun className="w-4 h-4" /> : <Moon className="w-4 h-4" />}
                   <span>Theme</span>
                 </SidebarMenuButton>
               </SidebarMenuItem>
