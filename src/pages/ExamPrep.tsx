@@ -1,6 +1,5 @@
-import { Card } from "@/components/ui/card";
+import { FileText, ChartBar, CheckCircle, BookOpen } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Upload } from "lucide-react";
 
 const ExamPrep = () => {
   return (
