@@ -1,5 +1,6 @@
-import { Home, BookOpen, FileText, Users, Target, Brain, HelpCircle } from "lucide-react";
+import { Home, BookOpen, FileText, Users, Target, Brain, HelpCircle, Settings, User, Moon, Sun } from "lucide-react";
 import { useLocation } from "react-router-dom";
+import { useTheme } from "next-themes";
 import {
   Sidebar,
   SidebarContent,
@@ -10,48 +11,31 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
   SidebarRail,
+  SidebarSeparator,
 } from "@/components/ui/sidebar";
 
-const items = [
-  {
-    title: "Dashboard",
-    icon: Home,
-    url: "/dashboard",
-  },
-  {
-    title: "Courses",
-    icon: BookOpen,
-    url: "/courses",
-  },
-  {
-    title: "Exam Prep",
-    icon: FileText,
-    url: "/exam-prep",
-  },
-  {
-    title: "Community",
-    icon: Users,
-    url: "/community",
-  },
-  {
-    title: "Goals",
-    icon: Target,
-    url: "/goals",
-  },
-  {
-    title: "Interactive Tutoring",
-    icon: Brain,
-    url: "/tutoring",
-  },
-  {
-    title: "Help",
-    icon: HelpCircle,
-    url: "/help",
-  },
+const navigationItems = [
+  { title: "Dashboard", icon: Home, url: "/dashboard" },
+  { title: "Courses", icon: BookOpen, url: "/courses" },
+  { title: "Exam Prep", icon: FileText, url: "/exam-prep" },
+  { title: "Community", icon: Users, url: "/community" },
+  { title: "Goals", icon: Target, url: "/goals" },
+  { title: "Interactive Tutoring", icon: Brain, url: "/tutoring" },
+  { title: "Help", icon: HelpCircle, url: "/help" },
+];
+
+const settingsItems = [
+  { title: "Profile", icon: User, url: "/profile" },
+  { title: "Settings", icon: Settings, url: "/settings" },
 ];
 
 export function AppSidebar() {
   const location = useLocation();
+  const { theme, setTheme } = useTheme();
+
+  const toggleTheme = () => {
+    setTheme(theme === "dark" ? "light" : "dark");
+  };
 
   return (
     <Sidebar>
@@ -60,7 +44,7 @@ export function AppSidebar() {
           <SidebarGroupLabel>Navigation</SidebarGroupLabel>
           <SidebarGroupContent>
             <SidebarMenu>
-              {items.map((item) => (
+              {navigationItems.map((item) => (
                 <SidebarMenuItem key={item.title}>
                   <SidebarMenuButton
                     asChild
@@ -74,6 +58,39 @@ export function AppSidebar() {
                   </SidebarMenuButton>
                 </SidebarMenuItem>
               ))}
+            </SidebarMenu>
+          </SidebarGroupContent>
+        </SidebarGroup>
+
+        <SidebarSeparator />
+
+        <SidebarGroup>
+          <SidebarGroupLabel>Settings</SidebarGroupLabel>
+          <SidebarGroupContent>
+            <SidebarMenu>
+              {settingsItems.map((item) => (
+                <SidebarMenuItem key={item.title}>
+                  <SidebarMenuButton
+                    asChild
+                    isActive={location.pathname === item.url}
+                    tooltip={item.title}
+                  >
+                    <a href={item.url} className="text-muted-foreground hover:text-foreground">
+                      <item.icon />
+                      <span>{item.title}</span>
+                    </a>
+                  </SidebarMenuButton>
+                </SidebarMenuItem>
+              ))}
+              <SidebarMenuItem>
+                <SidebarMenuButton
+                  onClick={toggleTheme}
+                  tooltip={`Toggle ${theme === 'dark' ? 'Light' : 'Dark'} Mode`}
+                >
+                  {theme === 'dark' ? <Sun /> : <Moon />}
+                  <span>Theme</span>
+                </SidebarMenuButton>
+              </SidebarMenuItem>
             </SidebarMenu>
           </SidebarGroupContent>
         </SidebarGroup>
