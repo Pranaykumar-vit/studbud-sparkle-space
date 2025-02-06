@@ -1,10 +1,9 @@
-
 import { useState } from "react";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Download, FileText, FilePdf } from "lucide-react";
+import { Download, FileText, FileIcon } from "lucide-react";
 import { useToast } from "@/components/ui/use-toast";
 
 const Goals = () => {
@@ -109,7 +108,7 @@ const Goals = () => {
                 Download as TXT
               </Button>
               <Button onClick={downloadPdf} variant="outline" className="flex items-center gap-2">
-                <FilePdf className="w-4 h-4" />
+                <FileIcon className="w-4 h-4" />
                 Download as PDF
               </Button>
             </div>
